@@ -1,0 +1,19 @@
+resource "azurerm_virtual_machine_extension" "example" {
+  name                 = "example-machine"
+  virtual_machine_id   = azurerm_windows_virtual_machine.example.id
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.8"
+
+  settings = <<SETTINGS
+ {
+  "fileUris": [ "https://gethustoragefdgdf.blob.core.windows.net/script/winrm.ps1" ],
+  "commandToExecute": "powershell winrm.ps1"
+ }
+SETTINGS
+
+
+  tags = {
+    environment = "Production"
+  }
+}
